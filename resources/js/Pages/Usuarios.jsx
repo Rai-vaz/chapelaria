@@ -1,8 +1,10 @@
 import Table from "@/Components/Table"
 
-export default function Usuarios ({table}) {
+const Usuarios = ({table}) => {
 
     return (
         <Table table={table}/>
     )
 }
+
+export default Usuarios

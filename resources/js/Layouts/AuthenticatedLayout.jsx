@@ -8,6 +8,7 @@ import { Link } from '@inertiajs/react';
 
 export default function Authenticated({ user, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
+    console.log(user.name)
 
     return (
         <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
@@ -132,7 +133,7 @@ export default function Authenticated({ user, children }) {
                             </svg>
                         }
                         text={'Dashboard'}
-                       href={'#'}
+                        href={'/dashboard'}
 
                     />
 
@@ -167,7 +168,7 @@ export default function Authenticated({ user, children }) {
                             </svg>
                         }   
                         text={'Participantes'}
-                        href={'#'}
+                        href={'/participante'}
                     />
 
                     <MenuButton
