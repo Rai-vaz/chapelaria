@@ -1,5 +1,6 @@
 import Table from "@/Components/Table"
 
+
 const Usuarios = ({table}) => {
 
     return (
