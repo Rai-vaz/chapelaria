@@ -5,7 +5,6 @@ export default function Table({table}) {
         <table>
             <thead>
                 <tr>
-                    <th>Id</th>
                     <th>Nome</th>
                     <th>E-mail</th>
                     <th>Criação</th>
@@ -16,7 +15,6 @@ export default function Table({table}) {
                 {table.map((element, index) => (
                     
                 <tr key={index}>
-                    <td>{element.id}</td>
                     <td>{element.name}</td>
                     <td>{element.email}</td>
                     <td>{element.created_at}</td>

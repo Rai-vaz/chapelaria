@@ -3,7 +3,10 @@ import Table from "@/Components/Table"
 const Usuarios = ({table}) => {
 
     return (
-        <Table table={table}/>
+        <>
+                    <Table table={table}/>
+            <p>{}</p>
+        </>
     )
 }
 

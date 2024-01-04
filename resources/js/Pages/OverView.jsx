@@ -1,6 +1,7 @@
 import { Head } from "@inertiajs/react"
-const OverView = ({user}) => {
- 
+const OverView = (props) => {
+    console.log(props.auth.user.name)
+
     return (
         <>
         <Head title='Over View'/>
