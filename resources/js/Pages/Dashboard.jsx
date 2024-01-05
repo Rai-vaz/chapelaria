@@ -9,11 +9,11 @@ import { Link } from '@inertiajs/react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import {logout, changeUser} from '../redux/useSlice'
-import OverView from './OverView';
 
 
 
 export default function Dashboard({auth, children}) {
+    
 
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
     const stateUser= useSelector(state => state.user)  
@@ -24,7 +24,7 @@ export default function Dashboard({auth, children}) {
     function handleClick() {
         
         setTimeout(() => {
-            dispatch(logout)
+            dispatch(logout())
         }, 1000)
     }
     
@@ -58,7 +58,7 @@ export default function Dashboard({auth, children}) {
                                                 >
                                                     {stateUser.user}
                                                     <svg
-                                                        className="ms-2 -me-0.5 h-4 w-4"
+                                                        className="ms-2 -me-0.5 h-4 w-4 fill-gray-500"
                                                         xmlns="http://www.w3.org/2000/svg"
                                                         viewBox="0 0 20 20"
                                                         fill="currentColo"
@@ -203,9 +203,9 @@ export default function Dashboard({auth, children}) {
             
                     </nav>
                 </div>
-                <div id='content' className='text-white bg-gray-800 rounded-tr-md rounded-br-md '>
+                <div id='content' className='text-white bg-gray-800 rounded-tr-md rounded-br-md'>
                     {children}
-                    <OverView/>
+                  
                 </div>
                 </main>
             </div>
