@@ -1,6 +1,5 @@
 
-const Participante = ({auth}) => {
-    console.log(auth.user.name)
+const Participante = () => {
     return (
         <>
             <h1>Página Participantes</h1>

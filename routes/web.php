@@ -29,7 +29,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return Inertia::render('OverView');
+    return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/usuarios', [NewUserController::class, 'createNewUser'])->middleware(['auth', 'verified'])->name('dashboard');

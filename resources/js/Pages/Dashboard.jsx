@@ -7,16 +7,26 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import MenuButton from '../Components/MenuButton'
 import { Link } from '@inertiajs/react';
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import {logout, changeUser} from '../redux/useSlice'
+import OverView from './OverView';
 
 
 
 export default function Dashboard({auth, children}) {
+
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
+    const stateUser= useSelector(state => state.user)  
+    const dispatch = useDispatch();
 
+    !stateUser.isLogged && dispatch(changeUser(auth.user.name))
 
-    const {user} = useSelector(state => state.user)
-
-    console.log(user)
+    function handleClick() {
+        
+        setTimeout(() => {
+            dispatch(logout)
+        }, 1000)
+    }
     
     return (
 
@@ -46,7 +56,7 @@ export default function Dashboard({auth, children}) {
                                                     type="button"
                                                     className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150"
                                                 >
-                                                    {user}
+                                                    {stateUser.user}
                                                     <svg
                                                         className="ms-2 -me-0.5 h-4 w-4"
                                                         xmlns="http://www.w3.org/2000/svg"
@@ -63,8 +73,8 @@ export default function Dashboard({auth, children}) {
                                             </span>
                                         </Dropdown.Trigger>
                                         <Dropdown.Content>
-                                            <Dropdown.Link href={route('profile.edit')}>Profile</Dropdown.Link>
-                                            <Dropdown.Link href={route('logout')} method="post" as="button">
+                                            <Dropdown.Link href={route('profile.edit')} >Profile</Dropdown.Link>
+                                            <Dropdown.Link href={route('logout')} onClick={handleClick} method="post" as="button">
                                                 Log Out
                                             </Dropdown.Link>
                                         </Dropdown.Content>
@@ -195,6 +205,7 @@ export default function Dashboard({auth, children}) {
                 </div>
                 <div id='content' className='text-white bg-gray-800 rounded-tr-md rounded-br-md '>
                     {children}
+                    <OverView/>
                 </div>
                 </main>
             </div>
