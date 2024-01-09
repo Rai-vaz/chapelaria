@@ -29,14 +29,14 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    return Inertia::render('OverView');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/usuarios', [NewUserController::class, 'createNewUser'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/usuarios', [NewUserController::class, 'createNewUser']);
 
-Route::get('/participante', [Participante::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/participante', [Participante::class, 'index']);
 
-Route::get('/overview', [OverView::class, 'index']);
+Route::get('overview', [OverView::class, 'index']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
