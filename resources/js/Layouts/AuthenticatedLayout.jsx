@@ -8,7 +8,11 @@ import { Link } from '@inertiajs/react';
 
 export default function Authenticated({ user, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
-    console.log(user.name)
+
+    function logOut() {
+        localStorage.removeItem('user')
+        console.log('chamou')
+    }
 
     return (
         <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
@@ -38,7 +42,7 @@ export default function Authenticated({ user, children }) {
                                                 type="button"
                                                 className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150"
                                             >
-                                                {user.name}
+                                                {localStorage.getItem('user')}
 
                                                 <svg
                                                     className="ms-2 -me-0.5 h-4 w-4"
@@ -58,7 +62,7 @@ export default function Authenticated({ user, children }) {
 
                                     <Dropdown.Content>
                                         <Dropdown.Link href={route('profile.edit')}>Profile</Dropdown.Link>
-                                        <Dropdown.Link href={route('logout')} method="post" as="button">
+                                        <Dropdown.Link href={route('logout')} method="post" as="button" onClick={() => logOut()}>
                                             Log Out
                                         </Dropdown.Link>
                                     </Dropdown.Content>

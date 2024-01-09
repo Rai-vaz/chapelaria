@@ -29,12 +29,12 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return Inertia::render('OverView');
+    return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/usuarios', [NewUserController::class, 'createNewUser']);
+Route::get('usuarios', [NewUserController::class, 'createNewUser']);
 
-Route::get('/participante', [Participante::class, 'index']);
+Route::get('participante', [Participante::class, 'index']);
 
 Route::get('overview', [OverView::class, 'index']);
 
