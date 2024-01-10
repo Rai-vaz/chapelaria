@@ -4,7 +4,7 @@ import '../css/app.css';
 import { createRoot } from 'react-dom/client';
 import { createInertiaApp } from '@inertiajs/react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
-import Authenticated from './Layouts/AuthenticatedLayout';
+import Dashboard from './Pages/Dashboard';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -15,7 +15,6 @@ createInertiaApp({
     
     resolve: (name) => resolvePageComponent(`./Pages/${name}.jsx`, import.meta.glob('./Pages/**/*.jsx'))
         .then((page) => {         
-             console.log(name)
             if (name == 'Welcome' || name == 'Auth/Login') {
                 return page
             }  
@@ -25,7 +24,7 @@ createInertiaApp({
                 
             }         
            
-            page.default.layout = page.default.layout || (page => <Authenticated user='' children={page} />)
+            page.default.layout = page.default.layout || (page => <Dashboard user='' children={page} />)
             return page  
           
            

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\NewUserController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Participante;
 use App\Http\Controllers\OverView;
 use Illuminate\Foundation\Application;
@@ -28,9 +29,7 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('usuarios', [NewUserController::class, 'createNewUser']);
 
