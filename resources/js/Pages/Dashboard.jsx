@@ -215,7 +215,7 @@ export default function Dashboard({user, children}) {
                     </nav>
                 </div>
 
-                <div id='content' className='text-white bg-gray-800 rounded-tr-md rounded-br-md '>
+                <div id='content' className='text-white bg-gray-800 rounded-tr-md rounded-br-md overflow-hidden'>
                     {children || <OverView/>}
                 </div>
             </main>
