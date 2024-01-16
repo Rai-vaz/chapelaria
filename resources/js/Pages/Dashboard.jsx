@@ -26,7 +26,7 @@ export default function Dashboard({user, children}) {
     return (
         <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
             <Head title="Dashboard" />
-            <nav className="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
+            <div className="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-16">
                         <div className="flex">
@@ -127,11 +127,11 @@ export default function Dashboard({user, children}) {
                         </div>
                     </div>
                 </div>
-            </nav>
+            </div>
 
-            <main className='grid grid-cols-[minmax(250px,15%),1fr] gap-5 m-5'>
+            <div className='grid grid-cols-[minmax(250px,15%),1fr] gap-5 m-5'>
                 <div id='menu-lateral' className='text-white bg-gray-800 p-3 rounded-tl-md rounded-bl-md' >
-                <nav>
+                    <nav>
                         <MenuButton
                             icon={
                                 <svg 
@@ -215,10 +215,10 @@ export default function Dashboard({user, children}) {
                     </nav>
                 </div>
 
-                <div id='content' className='text-white bg-gray-800 rounded-tr-md rounded-br-md'>
+                <main id='content' className='text-white bg-gray-800 rounded-tr-md rounded-br-md'>
                     {children || <OverView/>}
-                </div>
-            </main>
+                </main>
+            </div>
         </div>
         
     );

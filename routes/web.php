@@ -1,13 +1,14 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\NewUserController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Participante;
 use App\Http\Controllers\OverView;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\Auth\RegisteredUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,11 +30,17 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('usuarios', [NewUserController::class, 'createNewUser']);
+// ROTAS USUÁRIOS
+Route::get('usuarios', [UserController::class, 'index']);
+Route::get('novousuario',[RegisteredUserController::class, 'create']);
 
+
+// ROTAS PARTICIPANTES
 Route::get('participante', [Participante::class, 'index']);
+
+
 
 Route::get('overview', [OverView::class, 'index']);
 

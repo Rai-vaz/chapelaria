@@ -6,12 +6,16 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\User;
 
-class NewUserController extends Controller
+class UserController extends Controller
 {
-    public function createNewUser() {
+    public function index() {
 
         $users = User::all();
 
         return Inertia::render('Usuarios', ['table' => $users]);
+    }
+
+    public function newUser () {
+        return Inertia::render('NovoUsuario');
     }
 }
