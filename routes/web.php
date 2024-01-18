@@ -8,7 +8,6 @@ use App\Http\Controllers\OverView;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use App\Http\Controllers\Auth\RegisteredUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,21 +20,23 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canRegister' => Route::has('register'),
-        'canRegister' => Route::has('login'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+// Route::get('/', function () {
+//     return Inertia::render('Welcome', [
+//         'canRegister' => Route::has('register'),
+//         'canRegister' => Route::has('login'),
+//         'laravelVersion' => Application::VERSION,
+//         'phpVersion' => PHP_VERSION,
+//     ]);
+// });
+
+// Route::get('/',[]);
 
 Route::get('dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 // ROTAS USUÁRIOS
 Route::get('usuarios', [UserController::class, 'index']);
-Route::get('novousuario',[RegisteredUserController::class, 'create']);
-
+Route::get('novousuario',[UserController::class, 'create']);
+Route::post('novousuario',[UserController::class,'store'])->name('novousuario');
 
 // ROTAS PARTICIPANTES
 Route::get('participante', [Participante::class, 'index']);

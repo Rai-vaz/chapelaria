@@ -17,7 +17,7 @@ export default function NovoUsuario() {
 
             />
             <div className="w-[50%] p-5 mx-auto ">
-                <FormUser alre={true}/>
+                <FormUser alre={true} rote={'novousuario'}/>
             </div>
         </>
         

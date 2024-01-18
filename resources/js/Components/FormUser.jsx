@@ -7,7 +7,7 @@ import { Head, Link, useForm } from '@inertiajs/react';
 
 
 
-export default function FormUser({alre}) {
+export default function FormUser({alre, rote}) {
     alre = alre || false
 
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -26,7 +26,7 @@ export default function FormUser({alre}) {
     const submit = (e) => {
         e.preventDefault();
 
-        post(route('register'));
+        post(route(rote));
     };
 
     return (

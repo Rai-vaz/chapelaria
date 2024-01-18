@@ -5,8 +5,8 @@ import FormUser from '@/Components/FormUser';
 export default function Register() {
    
     return (
-        <GuestLayout>
-            <FormUser/>
+        <GuestLayout btnRegister={false}>
+            <FormUser rote='register'/>
         </GuestLayout>
 
     );

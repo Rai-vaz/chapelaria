@@ -17,8 +17,14 @@ export default {
             },
             colors: {
                 'custom-color-light-blue': '#adf0ff',
-                'header-color': '#1f5155'
+                'header-color': '#1f5155',
+                
             },
+
+            stroke: {
+                'custom-green': '#3de073',
+                'custom-red': '#ca1a26',
+            }
         },
     },
 

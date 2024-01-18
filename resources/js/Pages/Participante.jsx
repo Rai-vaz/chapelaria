@@ -1,7 +1,7 @@
 import { Head } from "@inertiajs/react"
 import { HeaderPage } from "@/Components/HeaderPage"
 import Table from "@/Components/Table"
-import SvgEngrenagem from "@/Components/SvgEngrenagem"
+import SvgEngrenagem from "@/Components/Svg"
 
 
 const Participante = () => {
