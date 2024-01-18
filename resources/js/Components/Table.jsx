@@ -21,19 +21,18 @@ export default function Table({data, headerTitle}) {
     const [state, setState] = useState({
         currentPage: 1,
         itemPerPage,
-        totalPage: Math.ceil(arrayTeste.length / itemPerPage),
+        totalPage: Math.ceil(data.length / itemPerPage),
         
     })
 
-    
+    //definindo ponto de corte
+    let page = state?.currentPage - 1;
+    let start = page * state?.itemPerPage;
+    let end = start + state?.itemPerPage
 
    //filtro dos dados
-    function update(state) {
-       
-        let page = state?.currentPage - 1;
-        let start = page * state?.itemPerPage;
-        let end = start + state?.itemPerPage
-        const paginatedItems = arrayTeste.slice(start, end)
+    function update(start, end) {
+        const paginatedItems = data.slice(start, end)
         return paginatedItems
       
     }
@@ -55,7 +54,7 @@ export default function Table({data, headerTitle}) {
                 </thead>
 
                 <tbody>{
-                    update(state).map((value, index) => (
+                    update(start, end).map((value, index) => (
                         <tr key={index} className="hover:bg-gray-900 cursor-pointer">
                             <td className="pt-1.5 pb-1.5 text-center">{value.name}</td>
                             <td className="pt-1.5 pb-1.5 text-center">{value.email}</td>
@@ -72,7 +71,7 @@ export default function Table({data, headerTitle}) {
                     
                 </tbody>
             </table>
-            <Pagination setState={setState} state={state} update={update} totalResults={arrayTeste.length}/>
+            <Pagination setState={setState} state={state} update={update} totalResults={data.length} start={start} end={end}/>
         </>
 
         

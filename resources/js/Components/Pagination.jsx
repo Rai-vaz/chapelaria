@@ -2,7 +2,7 @@ import Svg from "@/Components/Svg"
 
 
 
-export default function Pagination({setState, state, update, totalResults}) {
+export default function Pagination({setState, state, update, totalResults, start, end}) {
     const maxVisible = 5;
     const Buttons = {
         //botões esquerdos e direitos
@@ -18,7 +18,6 @@ export default function Pagination({setState, state, update, totalResults}) {
                 numberLeft = state.totalPage - (maxVisible - 1)
                 numberRight = state.totalPage
                 if (numberLeft < 1)   numberLeft = 1                
-                
             }
 
             return {numberLeft, numberRight}
@@ -29,10 +28,8 @@ export default function Pagination({setState, state, update, totalResults}) {
             const {numberLeft, numberRight} = this.changeButton()
             let buttonPage = []
             for (let page = numberLeft; page <= numberRight; page++) {
-                buttonPage.push(page)
-                
+                buttonPage.push(page)                
             }
-
             return buttonPage
         }
     }
@@ -45,8 +42,7 @@ export default function Pagination({setState, state, update, totalResults}) {
                 return
             }
             setState({...state, currentPage: state.currentPage + 1 })
-            update()
-            
+            update()            
         },
 
         prev(){
@@ -54,8 +50,7 @@ export default function Pagination({setState, state, update, totalResults}) {
                 return
             }
             setState({...state, currentPage: state.currentPage - 1})
-            update()
-           
+            update()           
         },
 
         goTo(page){
@@ -63,6 +58,7 @@ export default function Pagination({setState, state, update, totalResults}) {
         }
     }
 
+   
     
 
     return(
@@ -70,9 +66,9 @@ export default function Pagination({setState, state, update, totalResults}) {
             <div id="resume" className="flex items-center ml-4">
                 <p className="text-sm">
                     Mostrando de
-                    <span className="m-2">1</span>
+                    <span className="m-2">{start + 1}</span>
                     a
-                    <span className="m-2">10</span>
+                    <span className="m-2">{state.currentPage == state.totalPage ? totalResults : end}</span>
                     de
                     <span className="m-2">{totalResults}</span>
                     resultados
