@@ -24,9 +24,9 @@ export default function Dashboard({user, children}) {
 
 
     return (
-        <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
+        <div className="min-h-screen dark:bg-gray-900">
             <Head title="Dashboard" />
-            <div className="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
+            <div className="dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700" id='header'>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-16">
                         <div className="flex">
@@ -129,8 +129,8 @@ export default function Dashboard({user, children}) {
                 </div>
             </div>
 
-            <div className='grid grid-cols-[minmax(250px,15%),1fr] gap-5 m-5'>
-                <div id='menu-lateral' className='text-white bg-gray-800 p-3 rounded-tl-md rounded-bl-md' >
+            <div className='grid grid-cols-[minmax(250px,15%),1fr] gap-5 m-5 h-[calc(100vh-100px)]'>
+                <div id='menu-lateral' className='text-white bg-gray-800 p-3 rounded-tl-md rounded-bl-md'>
                     <nav>
                         <MenuButton
                             icon={
@@ -210,6 +210,7 @@ export default function Dashboard({user, children}) {
                             text={'Logout'}
                             href={'/work'}
                         />
+                   
 
                     
                     </nav>

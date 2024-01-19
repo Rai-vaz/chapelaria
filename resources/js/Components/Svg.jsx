@@ -1,4 +1,4 @@
-export default function Svg({d, color, margin}){
+export default function Svg({d, color, className}){
     return(
         <svg 
             xmlns="http://www.w3.org/2000/svg" 
@@ -6,7 +6,7 @@ export default function Svg({d, color, margin}){
             viewBox="0 0 24 24" 
             strokeWidth="1.5" 
             stroke={color}
-            className={'w-6 h-6 cursor-pointer inline'}
+            className={'cursor-pointer inline ' + className}
             
         >
             <path strokeLinecap="round" strokeLinejoin="round" d={d}/>
