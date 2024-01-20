@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Pagination from "@/Components/Pagination"
 import Svg from "@/Components/Svg"
 import SearchBar from "@/Components/SearchBar"
@@ -6,13 +6,8 @@ import SearchBar from "@/Components/SearchBar"
 
 
 export default function Table({data, headerTitle}) {
-    const orderedData = data 
-    const [dataFiltered, setDataFiltered] = useState([])
-    var processedData = []
-
-    !dataFiltered.length ? processedData = orderedData : processedData = dataFiltered
-
-    orderedData.sort(function(a, b) {
+    //ordenando dados
+    data.sort(function(a, b) {
         if (a.id > b.id ) {
             return -1;
         }else{
@@ -20,10 +15,16 @@ export default function Table({data, headerTitle}) {
         }
     })
 
+    const [dataFiltered, setDataFiltered] = useState([])
+    var processedData = []
+
+    !dataFiltered.length ? processedData = data : processedData = dataFiltered
+
+
     function searchFunction(wordToSearch) {
         const word =  wordToSearch.toLowerCase()
 
-        let result = orderedData.filter((value) => {
+        let result = data.filter((value) => {
             let valueLowerCase = value.name.toLowerCase()
             return valueLowerCase.includes(word)
         })
@@ -31,6 +32,9 @@ export default function Table({data, headerTitle}) {
         setDataFiltered(result)
     }
 
+    useEffect(() => {
+        setState({...state, totalPage:  Math.ceil(processedData.length / itemPerPage)})
+    },[dataFiltered])
    
     //estado da paginação
     const itemPerPage = 12
