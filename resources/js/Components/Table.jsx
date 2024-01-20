@@ -15,12 +15,26 @@ export default function Table({data, headerTitle}) {
         }
     })
 
-    const [dataFiltered, setDataFiltered] = useState([])
-    var processedData = []
+    //dados a serem exibidos
+    const [processedData, setProcessedData] = useState(data)
 
-    !dataFiltered.length ? processedData = data : processedData = dataFiltered
+    //estado da paginação
+    const itemPerPage = 12
+    const [state, setState] = useState({
+        currentPage: 1,
+        itemPerPage,
+        totalPage: 0,
+        setTotalPage(array){
+            this.totalPage = Math.ceil(array.length / this.itemPerPage)
+        }
+        
+    })
+
+    //atualiza totalPage
+    state.setTotalPage(processedData)
 
 
+    //função de busca
     function searchFunction(wordToSearch) {
         const word =  wordToSearch.toLowerCase()
 
@@ -29,21 +43,10 @@ export default function Table({data, headerTitle}) {
             return valueLowerCase.includes(word)
         })
             
-        setDataFiltered(result)
+        setProcessedData(result)
+
     }
 
-    useEffect(() => {
-        setState({...state, totalPage:  Math.ceil(processedData.length / itemPerPage)})
-    },[dataFiltered])
-   
-    //estado da paginação
-    const itemPerPage = 12
-    const [state, setState] = useState({
-        currentPage: 1,
-        itemPerPage,
-        totalPage: Math.ceil(processedData.length / itemPerPage),
-        
-    })
 
     //definindo ponto de corte
     var page = state?.currentPage - 1;
@@ -63,8 +66,7 @@ export default function Table({data, headerTitle}) {
         const formatted = prepare.format(stringToDate)
         return formatted
     }
-
-  
+    
     return (
         <>
             <SearchBar searchFunction={searchFunction}/>
