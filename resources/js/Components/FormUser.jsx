@@ -29,6 +29,7 @@ export default function FormUser({alre, rote}) {
         post(route(rote));
     };
 
+    console.log('renderizou')
     return (
         <>
             <Head title="Register" />
