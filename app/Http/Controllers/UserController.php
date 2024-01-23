@@ -16,10 +16,12 @@ class UserController extends Controller
 
         $users = User::all();
         return Inertia::render('Usuarios', ['table' => $users]);
+          
     }
 
     public function create () {
         return Inertia::render('NovoUsuario');
+        
     }
 
     public function store(Request $request){
@@ -39,6 +41,17 @@ class UserController extends Controller
             ]
         );
 
-       return redirect('/usuarios');
+        return redirect('/usuarios');
+       
+    }
+
+    public function destroy($id){
+        // add($id);
+        User::destroy($id);
+        // return Redirect::to('/dashboard');
+        return response()->json([
+            'message' => "User deleted ". $id
+        ],200);
+        
     }
 }

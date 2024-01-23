@@ -37,6 +37,7 @@ Route::get('dashboard', [DashboardController::class, 'index'])->middleware(['aut
 Route::get('usuarios', [UserController::class, 'index']);
 Route::get('novousuario',[UserController::class, 'create']);
 Route::post('novousuario',[UserController::class,'store'])->name('novousuario');
+Route::delete('usuarios/{id}', [UserController::class,'destroy']);
 
 // ROTAS PARTICIPANTES
 Route::get('participante', [Participante::class, 'index']);
@@ -48,7 +49,7 @@ Route::get('overview', [OverView::class, 'index']);
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::delete('/profile/{id}', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 require __DIR__.'/auth.php';

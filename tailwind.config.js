@@ -22,8 +22,9 @@ export default {
             },
 
             stroke: {
-                'custom-green': '#3de073',
-                'custom-red': '#ca1a26',
+                'lightGreen': '#c6ffac',
+                'greenTheme': '#1f5155'
+               
             }
         },
     },
