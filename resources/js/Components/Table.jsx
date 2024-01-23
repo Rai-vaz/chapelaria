@@ -83,6 +83,10 @@ export default function Table({data, headerTitle}) {
                 </thead>
 
                 <tbody>{
+                    processedData.length == 0 ?
+                    <tr>
+                        <td colSpan={'4'}  className="text-center bg-slate-950">Nenhum resultado encontrado</td>
+                    </tr> :
                     update(start, end).map((value, index) => (
                         <tr key={index} className="hover:bg-gray-900 cursor-pointer">
                             <td className="pt-1.5 pb-1.5 text-center">{value.name}</td>
@@ -100,7 +104,13 @@ export default function Table({data, headerTitle}) {
                     
                 </tbody>
             </table>
-            <Pagination setState={setState} state={state} update={update} totalResults={processedData.length} start={start} end={end}/>
+            <Pagination 
+                setState={setState} 
+                state={state} 
+                update={update} 
+                totalResults={processedData.length == 0 ? 0 : processedData.length} 
+                start={processedData.length == 0 ? -1 : start} 
+                end={processedData.length == 0 ? 0 : end}/>
         </>
 
         
