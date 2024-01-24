@@ -34,10 +34,11 @@ use Inertia\Inertia;
 Route::get('dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 // ROTAS USUÁRIOS
-Route::get('usuarios', [UserController::class, 'index']);
-Route::get('novousuario',[UserController::class, 'create']);
-Route::post('novousuario',[UserController::class,'store'])->name('novousuario');
-Route::delete('usuarios/{id}', [UserController::class,'destroy']);
+Route::get('usuarios', [UserController::class, 'listar']);
+Route::get('usuarios/adicionar', function(){ return Inertia::render('NovoUsuario'); });
+Route::post('usuarios/criar',[UserController::class,'create'])->name('usuarios/criar');
+Route::patch('usuarios/editar/{id}',[UserController::class, 'update']);
+Route::delete('usuarios/deletar/{id}', [UserController::class,'destroy']);
 
 // ROTAS PARTICIPANTES
 Route::get('participante', [Participante::class, 'index']);

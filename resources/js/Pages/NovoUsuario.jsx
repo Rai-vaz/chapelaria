@@ -13,11 +13,11 @@ export default function NovoUsuario() {
 
                 link='Listar usuários'
 
-                href='usuarios'
+                href='/usuarios'
 
             />
             <div className="w-[50%] p-5 mx-auto ">
-                <FormUser alre={true} rote={'novousuario'}/>
+                <FormUser alre={true} rote={'usuarios/criar'}/>
             </div>
         </>
         

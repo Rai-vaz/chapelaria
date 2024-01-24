@@ -17,6 +17,8 @@ export default function FormUser({alre, rote}) {
         password_confirmation: '',
     });
 
+    console.log(data)
+
     useEffect(() => {
         return () => {
             reset('password', 'password_confirmation');

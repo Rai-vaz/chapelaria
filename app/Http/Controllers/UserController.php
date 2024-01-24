@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+//USA PARA OBTER DADOS ENVIADOS PELO FRONT
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\User;
@@ -12,19 +13,14 @@ use Illuminate\Auth\Events\Registered;
 
 class UserController extends Controller
 {
-    public function index() {
+    public function listar() {
 
         $users = User::all();
         return Inertia::render('Usuarios', ['table' => $users]);
           
     }
 
-    public function create () {
-        return Inertia::render('NovoUsuario');
-        
-    }
-
-    public function store(Request $request){
+    public function create(Request $request){
         $request->validate(
             [
                 'name' => ['required', 'string', 'max:255'],
@@ -42,16 +38,43 @@ class UserController extends Controller
         );
 
         return redirect('/usuarios');
+        // return User::all();
        
     }
 
-    public function destroy($id){
-        // add($id);
-        User::destroy($id);
-        // return Redirect::to('/dashboard');
-        return response()->json([
-            'message' => "User deleted ". $id
-        ],200);
+    public function update(Request $request, $id) {
+
+    
+        //find user
+        $user = User::find($id);
+        if (!$user) {
+            return response()->json([
+                'mensagem' => 'Usuário não encontrado para editar'
+            ],400);
+        }      
         
+        $user->name = $request->name;
+        $user->email = $request->email;
+       
+
+        $user->save();
+
+        return User::all();   
+        
+    }
+
+    public function destroy($id){
+
+        $deleted = User::destroy($id);
+      
+        if ( $deleted > 0) {
+            return response()->json([
+                'mensagem' => 'Usuário deletado com sucesso'
+            ],200);
+        }else {
+            return response()->json([
+                'mensagem' => 'Não foi possível deletar usuário'
+            ],500);
+        }
     }
 }
