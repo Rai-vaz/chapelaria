@@ -38,7 +38,7 @@ Route::get('usuarios', [UserController::class, 'listar']);
 Route::get('usuarios/adicionar', function(){ return Inertia::render('NovoUsuario'); });
 Route::post('usuarios/criar',[UserController::class,'create'])->name('usuarios/criar');
 Route::patch('usuarios/editar/{id}',[UserController::class, 'update']);
-Route::delete('usuarios/deletar/{id}', [UserController::class,'destroy']);
+Route::delete('usuarios/{id}', [UserController::class,'destroy']);
 
 // ROTAS PARTICIPANTES
 Route::get('participante', [Participante::class, 'index']);
