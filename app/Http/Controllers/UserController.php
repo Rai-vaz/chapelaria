@@ -38,8 +38,7 @@ class UserController extends Controller
         );
 
         return redirect('/usuarios');
-        // return User::all();
-       
+      
     }
 
     public function update(Request $request, $id) {

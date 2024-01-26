@@ -3,6 +3,7 @@ import Pagination from "@/Components/Pagination"
 import Svg from "@/Components/Svg"
 import SearchBar from "@/Components/SearchBar"
 import axios from "axios"
+import Alert from '@/Components/Alert'
 
 
 export default function Table({data, headerTitle}) {
@@ -19,6 +20,13 @@ export default function Table({data, headerTitle}) {
 
     //dados a serem exibidos
     const [processedData, setProcessedData] = useState(data)
+
+    const [alert, setAlert] = useState ({
+        sucesso : false,
+        erro: false,
+        warning: false
+
+    })
 
     //estado da paginação
     const itemPerPage = 12
@@ -76,10 +84,9 @@ export default function Table({data, headerTitle}) {
 
     }
 
-    
+    //função deletar usuário
     async function handleClick(id) {
         var response = await axios.delete('http://127.0.0.1:8000/usuarios/'+id)
-
         if (response.status == 200) {
             let posDeletar = processedData.filter((value) => {
                 if (value.id !== id) {
@@ -89,15 +96,19 @@ export default function Table({data, headerTitle}) {
             })
 
             setProcessedData(posDeletar)
+            setAlert({...alert, sucesso : true})
+            setTimeout(() => {
+                setAlert({...alert, sucesso : false})
+            }, 3000)
         }
        
     }
 
 
-
     return (
         <>
             <SearchBar searchFunction={searchFunction}/>
+            <Alert text={'Usuário deletado com'} textStrong={'sucesso'} type={'sucesso'} show={alert}/>
             <table className="border border-slate-700 w-[100%]">
                 <thead className="bg-slate-700">
                     <tr>
