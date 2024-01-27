@@ -86,8 +86,8 @@ export default function Table({data, headerTitle}) {
 
     //função deletar usuário
     async function handleClick(id) {
-        var response = await axios.delete('http://127.0.0.1:8000/usuarios/'+id)
-        if (response.status == 200) {
+       axios.delete('http://127.0.0.1:8000/usuarios/'+id)
+       .then((resp) => {
             let posDeletar = processedData.filter((value) => {
                 if (value.id !== id) {
                     return value
@@ -99,8 +99,15 @@ export default function Table({data, headerTitle}) {
             setAlert({...alert, sucesso : true})
             setTimeout(() => {
                 setAlert({...alert, sucesso : false})
-            }, 3000)
-        }
+            }, 4000)
+        }).catch((erro) => {
+            setAlert({...alert, erro : true})
+            setTimeout(() => {
+                setAlert({...alert, erro : false})
+            }, 4000)
+        })
+        
+       
        
     }
 
@@ -108,7 +115,13 @@ export default function Table({data, headerTitle}) {
     return (
         <>
             <SearchBar searchFunction={searchFunction}/>
-            <Alert text={'Usuário deletado com'} textStrong={'sucesso'} type={'sucesso'} show={alert}/>
+            <Alert 
+                text={alert.sucesso ? 'Registro deletado com' : alert.erro && 'Não foi possível' } 
+                textStrong={alert.sucesso ? ' sucesso' :  alert.erro && ' deletar'} 
+                show={alert}
+
+            />              
+            
             <table className="border border-slate-700 w-[100%]">
                 <thead className="bg-slate-700">
                     <tr>
