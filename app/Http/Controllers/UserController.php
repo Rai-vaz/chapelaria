@@ -50,7 +50,13 @@ class UserController extends Controller
             return response()->json([
                 'mensagem' => 'Usuário não encontrado para editar'
             ],400);
-        }      
+        } 
+        
+        if ($request->isMethod('get')) {
+
+            $register = User::find($id);
+            return Inertia::render('EditarUsuario',['data' => $register, 'id' => $id]);
+        }
         
         $user->name = $request->name;
         $user->email = $request->email;
@@ -58,7 +64,9 @@ class UserController extends Controller
 
         $user->save();
 
-        return User::all();   
+        return response()->json([
+            'mensagem' => "Usuário editado com sucesso"
+        ], 200);
         
     }
 

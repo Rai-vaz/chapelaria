@@ -1,14 +1,13 @@
 
 
-export default function Alert({text, textStrong, show}) {
+export default function Alert({text, textStrong, show, className}) {
 
    const verify = Object.values(show).some((value) => value == true)
 
     
     return (
         <div 
-            className={'rounded-tr-md rounded-tl-md transition-all duration-700 '  +  
-            (show.sucesso ? 'bg-green-700 text-green-300 ' : show.erro ? 'bg-red-700 text-red-300 ' : show.warning &&  'bg-orange-700 text-orange-300 ') + (verify ? ' p-2 h-[40px] ' : 'p-0 h-[0]') }
+            className={'transition-all duration-700 '  +  className + ' ' +(show.sucesso ? 'bg-green-700 text-green-300 ' : show.erro ? 'bg-red-700 text-red-300 ' : show.warning &&  'bg-orange-700 text-orange-300 ') + (verify ? ' p-2 h-[40px] ' : 'p-0 h-[0]') }
             
         >
 
