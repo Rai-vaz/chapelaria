@@ -30,7 +30,8 @@ export default function Table({data, headerTitle}) {
     })
 
     //estado da paginação
-    const itemPerPage = 12
+    const alturaViewport = window.innerHeight || document.documentElement.clientHeight
+    const itemPerPage = alturaViewport < 919 ? 12 : 17
     const [state, setState] = useState({
         currentPage: 1,
         itemPerPage,
@@ -85,46 +86,51 @@ export default function Table({data, headerTitle}) {
 
     }
 
+    function fadeAlert(fadeIn, fadeOut) {
+        setAlert(fadeIn)
+        setTimeout(() => {
+            setAlert(fadeOut)
+        }, 3000)
+    }
+
     //função deletar usuário
     async function handleClick(id) {
        axios.delete('http://127.0.0.1:8000/usuarios/'+id)
        .then((resp) => {
+            console.log(resp)
             let posDeletar = processedData.filter((value) => {
                 if (value.id !== id) {
                     return value
                 }
                 
             })
-
             setProcessedData(posDeletar)
-            setAlert({...alert, sucesso : true})
-            setTimeout(() => {
-                setAlert({...alert, sucesso : false})
-            }, 4000)
-        }).catch((erro) => {
-            setAlert({...alert, erro : true})
-            setTimeout(() => {
-                setAlert({...alert, erro : false})
-            }, 4000)
+
+            fadeAlert({...alert, sucesso : true}, {...alert, sucesso : false})
+            
+        }).catch((error) => {
+            console.log(error)
+            error.response.status == 500 ? fadeAlert({...alert, erro : true}, {...alert, erro : false}) :
+            fadeAlert({...alert, warning : true}, {...alert, warning : false})
         })
-        
-       
-       
+         
     }
+
+    
 
 
     return (
-        <>
+        <div>
             <SearchBar searchFunction={searchFunction}/>
             <Alert 
-                text={alert.sucesso ? 'Registro deletado com' : alert.erro && 'Não foi possível' } 
-                textStrong={alert.sucesso ? ' sucesso' :  alert.erro && ' deletar'} 
+                text={alert.sucesso ? 'Registro deletado com' : alert.erro  ? 'Não foi possível' : alert.warning && 'Usuário não tem '} 
+                textStrong={alert.sucesso ? ' sucesso' :  alert.erro ? ' deletar' : alert.warning && 'permissão'} 
                 show={alert}
                 className='rounded-tr-md rounded-tl-md'
 
             />              
             
-            <table className="border border-slate-700 w-[100%]">
+            <table className="border border-slate-700 w-[100%] h-[100%]" id="table">
                 <thead className="bg-slate-700">
                     <tr>
                         {
@@ -145,6 +151,7 @@ export default function Table({data, headerTitle}) {
                         <tr key={index} className="hover:bg-gray-900 cursor-pointer">
                             <td className="pt-1.5 pb-1.5 text-center">{value.name}</td>
                             <td className="pt-1.5 pb-1.5 text-center">{value.email}</td>
+                            <td className="pt-1.5 pb-1.5 text-center">{value.role.type}</td>
                             <td className="pt-1.5 pb-1.5 text-center">{formatterDate(value.created_at)}</td>
                             <td className="pt-1.5 pb-1.5 text-center">
                                 <Link href={"usuarios/editar/"+value.id}>
@@ -170,7 +177,7 @@ export default function Table({data, headerTitle}) {
                 end={processedData.length == 0 ? 0 : end}
 
             />
-        </>
+        </div>
 
         
     )

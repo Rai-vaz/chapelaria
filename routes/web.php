@@ -20,38 +20,29 @@ use Inertia\Inertia;
 |
 */
 
-// Route::get('/', function () {
-//     return Inertia::render('Welcome', [
-//         'canRegister' => Route::has('register'),
-//         'canRegister' => Route::has('login'),
-//         'laravelVersion' => Application::VERSION,
-//         'phpVersion' => PHP_VERSION,
-//     ]);
-// });
-
-// Route::get('/',[]);
 
 Route::get('dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
-// ROTAS USUÁRIOS
-Route::get('usuarios', [UserController::class, 'listar']);
-Route::get('usuarios/adicionar', function(){ return Inertia::render('NovoUsuario'); });
-Route::post('usuarios/criar',[UserController::class,'create'])->name('usuarios/criar');
-// Route::patch('usuarios/editar/{id}',[UserController::class, 'update']);
-Route::delete('usuarios/{id}', [UserController::class,'destroy']);
-Route::match(['get','patch'],'usuarios/editar/{id}',[UserController::class, 'update']);
-
-// ROTAS PARTICIPANTES
-Route::get('participante', [Participante::class, 'index']);
-
-
-
-Route::get('overview', [OverView::class, 'index']);
 
 Route::middleware('auth')->group(function () {
+    
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile/{id}', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // ROTAS USUÁRIOS
+    Route::get('usuarios', [UserController::class, 'listar']);
+    Route::get('usuarios/adicionar', function(){ return Inertia::render('NovoUsuario'); });
+    Route::post('usuarios/criar',[UserController::class,'create'])->name('usuarios/criar');
+    Route::delete('usuarios/{id}', [UserController::class,'destroy']);
+    Route::match(['get','patch'],'usuarios/editar/{id}',[UserController::class, 'update']);
+
+    // ROTAS PARTICIPANTES
+    Route::get('participante', [Participante::class, 'index']);
+
+    Route::get('overview', [OverView::class, 'index']);
+
+
 });
 
 require __DIR__.'/auth.php';

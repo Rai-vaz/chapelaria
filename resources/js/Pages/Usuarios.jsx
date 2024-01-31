@@ -14,7 +14,7 @@ const Usuarios = ({table}) => {
                 href='usuarios/adicionar'
            />
            <Table 
-                headerTitle={['Nome','E-mail','Criação','Ações']}
+                headerTitle={['Nome','E-mail','Tipo','Criação','Ações']}
                 
                 data={table}
             />

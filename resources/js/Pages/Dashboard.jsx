@@ -1,5 +1,5 @@
 import { Head } from '@inertiajs/react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
@@ -14,6 +14,7 @@ import OverView from './OverView';
 export default function Dashboard({user, children}) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
     
+    
     if (!localStorage.getItem('user')) {
         localStorage.setItem('user', user.name)
     }
@@ -22,6 +23,10 @@ export default function Dashboard({user, children}) {
         localStorage.removeItem('user')
     }
 
+    
+   
+  
+    
 
     return (
         <div className="min-h-screen dark:bg-gray-900">
@@ -129,7 +134,7 @@ export default function Dashboard({user, children}) {
                 </div>
             </div>
 
-            <div className='grid grid-cols-[minmax(250px,15%),1fr] gap-5 m-5 h-[calc(100vh-100px)]'>
+            <div className='grid grid-cols-[minmax(250px,15%),1fr] gap-5 m-5'>
                 <div id='menu-lateral' className='text-white bg-gray-800 p-3 rounded-tl-md rounded-bl-md'>
                     <nav>
                         <MenuButton
@@ -216,7 +221,7 @@ export default function Dashboard({user, children}) {
                     </nav>
                 </div>
 
-                <main id='content' className='text-white bg-gray-800 overflow-hidden rounded-tr-md rounded-br-md'>
+                <main id='content' className='text-white bg-gray-800 rounded-tr-md rounded-br-md'>
                     {children || <OverView/>}
                 </main>
             </div>

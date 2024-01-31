@@ -6,16 +6,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Validation\Rules;
 // USADO PARA CRIPTOGRAFAR SENHAS
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
     public function listar() {
-
-        $users = User::all();
+        // No controlador
+        $users = User::with('role')->get();
+    
         return Inertia::render('Usuarios', ['table' => $users]);
           
     }
@@ -70,18 +73,33 @@ class UserController extends Controller
         
     }
 
-    public function destroy($id){
+    public function destroy(User $user, $id){
 
-        $deleted = User::destroy($id);
-      
-        if ( $deleted > 0) {
+  
+        $permissao = $this->authorize('delete', $user);
+
+        if ($permissao) {
+
+            $deleted = User::destroy($id);
+
+            if ($deleted > 0) {
+                return response()->json([
+                    'mensagem' => 'Usuário deletado com sucesso',
+                    
+                ],200);
+            }else{
+                return response()->json([
+                    'mensagem' => 'Usuário não pode ser deletado',
+                    
+                ],500);
+            }
+
+        }else{
             return response()->json([
-                'mensagem' => 'Usuário deletado com sucesso'
-            ],200);
-        }else {
-            return response()->json([
-                'mensagem' => 'Não foi possível deletar usuário'
-            ],500);
+                'mensagem' => 'Usuário não tem permissão',
+                
+            ],403);
         }
+            
     }
 }
