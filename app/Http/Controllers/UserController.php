@@ -24,22 +24,25 @@ class UserController extends Controller
           
     }
 
-
-
     public function show() {
-        //retorna usuário 1
+        //retorna usuário
         // $user = User::find(5);
+
         //retorna regra do usuário
-        $role = Role::all();
+        // $role = $user->role;
+
         //retorna as habilidades do usuário
         // $abilities = $role->abilities;
+
+        //retorna as habilidades do usuário
+        // $abilities = User::find(271)->role->abilities;
+
+        $role = Role::all();
 
         
         return Inertia::render('Usuario/NovoUsuario', ['role' => $role]);
 
     }
-
-
 
     public function create(Request $request){
 
@@ -61,7 +64,10 @@ class UserController extends Controller
             ]
         );
 
+        
+
         return redirect('/usuarios');
+        
       
     }
 
@@ -78,12 +84,15 @@ class UserController extends Controller
         
         if ($request->isMethod('get')) {
 
-            $register = User::find($id);
-            return Inertia::render('EditarUsuario',['data' => $register, 'id' => $id]);
+            //retorna usuário com seu role
+            $user = User::with('role')->find($id);
+            $roles = Role::all();
+            return Inertia::render('Usuario/EditarUsuario',['user' => $user, 'roles' => $roles]);
         }
         
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->role_id = $request->type;
        
 
         $user->save();

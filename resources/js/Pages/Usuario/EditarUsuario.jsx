@@ -1,21 +1,22 @@
-import { Head }from "@inertiajs/react"
+import { Head, router }from "@inertiajs/react"
 import InputLabel from "@/Components/InputLabel"
 import InputError from "@/Components/InputError"
 import TextInput from "@/Components/TextInput"
 import PrimaryButton from "@/Components/PrimaryButton"
 import { useForm } from "react-hook-form"
 import axios from "axios"
-import {router} from '@inertiajs/react'
 import { HeaderPage } from "@/Components/HeaderPage"
 import { useState } from "react"
 import Alert from "@/Components/Alert"
 
 
 
-export default function EditarUsuario({data, id}) {
+export default function EditarUsuario({user, roles}) {
+
     const {register, handleSubmit, formState: {errors}} = useForm({
+        type: '',
         name : '',
-        email: ''
+        email: '',
     })
 
     const [showAlert, setShowAlert] = useState({
@@ -25,9 +26,10 @@ export default function EditarUsuario({data, id}) {
     })
 
     function onSubmit(data) {
-        
-        axios.patch('http://127.0.0.1:8000/usuarios/editar/'+id, data)
-        .then(() => {
+
+        axios.patch('http://127.0.0.1:8000/usuarios/editar/'+user.id, data)
+        .then((response) => {
+            console.log(response)
             setShowAlert({...showAlert, sucesso: true})
 
             setTimeout(() => {
@@ -36,7 +38,8 @@ export default function EditarUsuario({data, id}) {
             }, 4000);
             
 
-        }).catch(() => {
+        }).catch((error) => {
+            console.log(error)
             setShowAlert({...showAlert, erro: true})
             setTimeout(() => {
                 setShowAlert({...showAlert, erro: false})
@@ -57,18 +60,38 @@ export default function EditarUsuario({data, id}) {
                 href='/usuarios'
             />
             <Alert 
-                text= {showAlert.sucesso ? 'Usuário editado com' : 'Não foi possível editar o usuário '} 
-                textStrong={showAlert.sucesso ? ' sucesso' : 'tente novamente'} 
+                text= {showAlert.sucesso ? 'Usuário editado com' : showAlert.erro && 'Não foi possível editar o usuário '} 
+                textStrong={showAlert.sucesso ? ' sucesso' : showAlert.erro && 'tente novamente'} 
                 show={showAlert}
 
             />
             <div className="text-center">
                 <form className="w-[60%] inline-block">
+
+                    <div className="text-left mt-5">
+                        <InputLabel value='Tipo de usuário' htmlFor='name'/>
+                      
+                        <select 
+                            className={'w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300  dark:focus:border-indigo-600 dark:focus:ring-indigo-600 rounded-md shadow-sm'}
+                            defaultValue={user.role.id}
+                            {...register('type',{required: true})}                        
+                        >                         
+                            { 
+                                roles.map((value, key) => (
+                                    <option value={key + 1} key={key}>{value.type}</option>
+                                ))
+                            }
+                        </select>
+                        <InputError
+                            message={errors?.type?.type == 'required' && 'Campo obrigatório'}
+                        />
+                    </div>
+
                     <div className="text-left mt-5">
                         <InputLabel value='Nome' htmlFor='name'/>
                         <TextInput
                             id='name'
-                            defaultValue={data.name}
+                            defaultValue={user.name}
                             {...register('name', {required: true})}
                             className={'mt-1 block w-full ' + (errors?.name?.type == 'required' && 'dark:focus:border-red-500 dark:focus:ring-red-500')}
                         />
@@ -80,7 +103,7 @@ export default function EditarUsuario({data, id}) {
                         <InputLabel value='Email' htmlFor='email'/>
                         <TextInput
                             id='email'
-                            defaultValue={data.email}
+                            defaultValue={user.email}
                             {...register('email', {required: true})}
                             className={'mt-1 block w-full ' + (errors?.email?.type == 'required' && 'dark:focus:border-red-500 dark:focus:ring-red-500')}
                         />

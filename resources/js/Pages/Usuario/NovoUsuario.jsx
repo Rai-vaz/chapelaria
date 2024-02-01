@@ -4,6 +4,7 @@ import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
+import Select from "@/Components/Select";
 import { Head, Link, useForm } from '@inertiajs/react';
 
 
@@ -18,6 +19,8 @@ export default function NovoUsuario({role}) {
         password_confirmation: '',
     });
 
+    console.log(errors)
+
     useEffect(() => {
         return () => {
             reset('password', 'password_confirmation');
@@ -26,10 +29,9 @@ export default function NovoUsuario({role}) {
 
     const submit = (e) => {
         e.preventDefault();
-
-        post(route('usuarios.criar'));
     };
-    
+
+   
   
 
     return (
@@ -51,21 +53,14 @@ export default function NovoUsuario({role}) {
 
                     <div className='mt-4'>
                         <InputLabel value='Tipo de usuário'/>
-                        <select 
-                            className='w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300  dark:focus:border-indigo-600 dark:focus:ring-indigo-600 rounded-md shadow-sm'
+
+                        <Select
                             defaultValue={data.type}
-                            onChange={
-                                (e) => setData('type', e.target.value)
-                            }
-                        >
-                            <option value={''} hidden disabled>Selecione o tipo de usuário</option>
-                            {
-                                
-                                role.map((value, key) => (
-                                    <option value={key + 1} key={key}>{value.type}</option>
-                                ))
-                            }
-                        </select>
+                            placeholder={'Selecione o tipo de usuário'}
+                            option={role}
+                            setData={setData}
+                        />
+                 
                     </div>
 
                     <div className='mt-4'>

@@ -35,7 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::get('usuarios/cadastrar', [UserController::class, 'show'])->name('usuarios.cadastrar');
     Route::post('usuarios/criar',[UserController::class,'create'])->name('usuarios.criar');
     Route::delete('usuarios/{id}', [UserController::class,'destroy']);
-    Route::match(['get','patch'],'usuarios/editar/{id}',[UserController::class, 'update']);
+    Route::match(['get','patch'],'usuarios/editar/{id}',[UserController::class, 'update'])->name('teste');
 
     // ROTAS PARTICIPANTES
     Route::get('participante', [Participante::class, 'index'])->name('participantes');
