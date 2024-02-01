@@ -22,3 +22,35 @@ ABILITY
 
 ====SEEDER E FACTORY======
 USADOS PARA INSERIR DADOS NO BANCO, AO RODAR O COMANDO php artisan db:seed O ARQUIVO DataBaseSeeder É EXECUTADO MAS É NECESSÁRIO TER UMA FACTORY, QUE É USADA PARA INCLUIR MAIS DE UM REGISTRO
+
+
+==========RELACIONAMENTOS DE TABELAS====================
+EXISTE CAMINHOS IDA E VOLTA
+
+IDA = hasOne()
+VOLTA = belongTo()
+
+ONDE ESTIVER UMA COLUNA COM CHAVE ESTRANGEIRA SIGNIFICA QUE ESSES DADOS PERTENCE AO DONO DO ID CORRESPONDENTE
+
+**MÉTODOS***
+
+## RELAÇÃO 1 PARA 1 ##
+--HAS--
+hasOne() ex: usuário tem 1 endereço
+
+--BELONGS--
+belongsTo() ex: o endereço pertence a 1 usuário
+
+## RELAÇÃO 1 PARA MUITOS ##
+--HAS--
+hasMany() ex: 1 usuário tem vários postes
+
+--BELONGS--
+belongsTo() ex: e cada poste pertence a 1 usuário 
+
+## RELAÇÃO MUITOS PARA MUITOS ##
+PRECISA DE UMA TABELA PIVOT
+
+--BELONGS--
+belongsTo() método belongs to na duas pontas 
+            ex: uma regra pode ter várias habilidades e uma habilidade pode ter varias regras

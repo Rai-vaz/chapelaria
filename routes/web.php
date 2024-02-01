@@ -32,7 +32,7 @@ Route::middleware('auth')->group(function () {
 
     // ROTAS USUÁRIOS
     Route::get('usuarios', [UserController::class, 'listar']);
-    Route::get('usuarios/adicionar', function(){ return Inertia::render('NovoUsuario'); });
+    Route::get('usuarios/adicionar', [UserController::class, 'show']);
     Route::post('usuarios/criar',[UserController::class,'create'])->name('usuarios/criar');
     Route::delete('usuarios/{id}', [UserController::class,'destroy']);
     Route::match(['get','patch'],'usuarios/editar/{id}',[UserController::class, 'update']);

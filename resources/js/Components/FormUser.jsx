@@ -7,15 +7,19 @@ import { Head, Link, useForm } from '@inertiajs/react';
 
 
 
-export default function FormUser({alre, rote}) {
+export default function FormUser({alre, rote, dataForInput}) {
+    console.log(dataForInput)
     alre = alre || false
 
     const { data, setData, post, processing, errors, reset } = useForm({
+        type: '',
         name: '',
         email: '',
         password: '',
         password_confirmation: '',
     });
+
+    console.log(data)
 
 
     useEffect(() => {
@@ -32,17 +36,35 @@ export default function FormUser({alre, rote}) {
 
     return (
         <>
-            <Head title="Register" />
+            <Head title="Cadastro Usuário" />
 
             <form onSubmit={submit}>
-                <div>
+                <div className='mt-4'>
+                    <InputLabel value='Tipo de usuário'/>
+                    <select 
+                        className='w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300  dark:focus:border-indigo-600 dark:focus:ring-indigo-600 rounded-md shadow-sm'
+                        defaultValue={data.type}
+                        onChange={
+                            (e) => setData('type', e.target.value)
+                        }
+                    >
+                        <option value={''} hidden disabled>Selecione o tipo de usuário</option>
+                        {
+                            
+                            dataForInput.map((value, key) => (
+                                <option value={key + 1} key={key}>{value.type}</option>
+                            ))
+                        }
+                    </select>
+                </div>
+                <div className='mt-4'>
                     <InputLabel htmlFor="name" value="Name" />
 
                     <TextInput
                         id="name"
                         name="name"
                         value={data.name}
-                        className="mt-1 block w-full"
+                        className="block w-full"
                         autoComplete="name"
                         isFocused={true}
                         onChange={(e) => setData('name', e.target.value)}
@@ -60,7 +82,7 @@ export default function FormUser({alre, rote}) {
                         type="email"
                         name="email"
                         value={data.email}
-                        className="mt-1 block w-full"
+                        className="block w-full"
                         autoComplete="username"
                         onChange={(e) => setData('email', e.target.value)}
                         required
@@ -77,7 +99,7 @@ export default function FormUser({alre, rote}) {
                         type="password"
                         name="password"
                         value={data.password}
-                        className="mt-1 block w-full"
+                        className="block w-full"
                         autoComplete="new-password"
                         onChange={(e) => setData('password', e.target.value)}
                         required
@@ -94,7 +116,7 @@ export default function FormUser({alre, rote}) {
                         type="password"
                         name="password_confirmation"
                         value={data.password_confirmation}
-                        className="mt-1 block w-full"
+                        className="block w-full"
                         autoComplete="new-password"
                         onChange={(e) => setData('password_confirmation', e.target.value)}
                         required

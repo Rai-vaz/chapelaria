@@ -4,11 +4,11 @@ export default forwardRef(function TextInput({ type = 'text', className = '', is
     const input = ref ? ref : useRef();
     
 
-    useEffect(() => {
-        if (isFocused) {
-            input.current.focus();
-        }
-    }, []);
+    // useEffect(() => {
+    //     if (isFocused) {
+    //         input.current.focus();
+    //     }
+    // }, []);
 
     return (
         <input

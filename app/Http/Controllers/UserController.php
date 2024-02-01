@@ -16,14 +16,34 @@ use Illuminate\Support\Facades\Gate;
 class UserController extends Controller
 {
     public function listar() {
-        // No controlador
+
         $users = User::with('role')->get();
+        // $abilities = $users->abilities;
     
         return Inertia::render('Usuarios', ['table' => $users]);
           
     }
 
+
+
+    public function show() {
+        //retorna usuário 1
+        // $user = User::find(5);
+        //retorna regra do usuário
+        $role = Role::all();
+        //retorna as habilidades do usuário
+        // $abilities = $role->abilities;
+
+        
+        return Inertia::render('NovoUsuario', ['role' => $role]);
+
+    }
+
+
+
     public function create(Request $request){
+
+
         $request->validate(
             [
                 'name' => ['required', 'string', 'max:255'],
@@ -34,6 +54,7 @@ class UserController extends Controller
 
         User::create(
             [
+                'role_id' => $request->type,
                 'name' => ucwords($request->name),
                 'email' => $request->email,
                 'password' => Hash::make($request->password)
