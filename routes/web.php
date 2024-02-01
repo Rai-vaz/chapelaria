@@ -31,9 +31,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile/{id}', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // ROTAS USUÁRIOS
-    Route::get('usuarios', [UserController::class, 'listar']);
-    Route::get('usuarios/adicionar', [UserController::class, 'show']);
-    Route::post('usuarios/criar',[UserController::class,'create'])->name('usuarios/criar');
+    Route::get('usuarios', [UserController::class, 'listar'])->name('usuarios');
+    Route::get('usuarios/cadastrar', [UserController::class, 'show'])->name('usuarios.cadastrar');
+    Route::post('usuarios/criar',[UserController::class,'create'])->name('usuarios.criar');
     Route::delete('usuarios/{id}', [UserController::class,'destroy']);
     Route::match(['get','patch'],'usuarios/editar/{id}',[UserController::class, 'update']);
 

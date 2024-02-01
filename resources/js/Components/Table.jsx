@@ -97,7 +97,6 @@ export default function Table({data, headerTitle}) {
     async function handleClick(id) {
        axios.delete('http://127.0.0.1:8000/usuarios/'+id)
        .then((resp) => {
-            console.log(resp)
             let posDeletar = processedData.filter((value) => {
                 if (value.id !== id) {
                     return value
@@ -109,7 +108,6 @@ export default function Table({data, headerTitle}) {
             fadeAlert({...alert, sucesso : true}, {...alert, sucesso : false})
             
         }).catch((error) => {
-            console.log(error)
             error.response.status == 500 ? fadeAlert({...alert, erro : true}, {...alert, erro : false}) :
             fadeAlert({...alert, warning : true}, {...alert, warning : false})
         })
