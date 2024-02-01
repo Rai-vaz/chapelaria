@@ -38,7 +38,7 @@ Route::middleware('auth')->group(function () {
     Route::match(['get','patch'],'usuarios/editar/{id}',[UserController::class, 'update']);
 
     // ROTAS PARTICIPANTES
-    Route::get('participante', [Participante::class, 'index']);
+    Route::get('participante', [Participante::class, 'index'])->name('participantes');
 
     Route::get('overview', [OverView::class, 'index']);
 

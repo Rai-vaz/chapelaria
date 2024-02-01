@@ -135,6 +135,7 @@ export default function Dashboard({user, children}) {
             </div>
 
             <div className='grid grid-cols-[minmax(250px,15%),1fr] gap-5 m-5'>
+                
                 <div id='menu-lateral' className='text-white bg-gray-800 p-3 rounded-tl-md rounded-bl-md'>
                     <nav>
                         <MenuButton
@@ -152,7 +153,7 @@ export default function Dashboard({user, children}) {
                                 </svg>
                             }
                             text={'Dashboard'}
-                            href={'/dashboard'}
+                            href={route('dashboard')}
 
                         />
 
@@ -172,7 +173,7 @@ export default function Dashboard({user, children}) {
 
                             }
                             text={'Usuários'}
-                            href={'/usuarios'}
+                            href={route('usuarios')}
                         />
 
                         <MenuButton
@@ -187,7 +188,7 @@ export default function Dashboard({user, children}) {
                                 </svg>
                             }   
                             text={'Participantes'}
-                            href={'/participante'}
+                            href={'participantes'}
                         />
 
                         <MenuButton
@@ -198,7 +199,7 @@ export default function Dashboard({user, children}) {
                             }
 
                             text={'Chapelaria'}
-                            href={'#'}
+                            href={''}
                         />
 
                         <MenuButton
@@ -213,7 +214,7 @@ export default function Dashboard({user, children}) {
                                 </svg>
                             }
                             text={'Logout'}
-                            href={'/work'}
+                            href={''}
                         />
                    
 
@@ -229,6 +230,7 @@ export default function Dashboard({user, children}) {
         
     );
 }
+
     
         
             

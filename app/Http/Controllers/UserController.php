@@ -20,7 +20,7 @@ class UserController extends Controller
         $users = User::with('role')->get();
         // $abilities = $users->abilities;
     
-        return Inertia::render('Usuarios', ['table' => $users]);
+        return Inertia::render('Usuario/Usuarios', ['table' => $users]);
           
     }
 
@@ -35,7 +35,7 @@ class UserController extends Controller
         // $abilities = $role->abilities;
 
         
-        return Inertia::render('NovoUsuario', ['role' => $role]);
+        return Inertia::render('Usuario/NovoUsuario', ['role' => $role]);
 
     }
 
