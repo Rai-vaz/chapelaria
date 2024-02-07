@@ -18,6 +18,7 @@ export default {
             colors: {
                 'custom-color-light-blue': '#adf0ff',
                 'header-color': '#1f5155',
+                'green-250': '#02907d',
                 
             },
 

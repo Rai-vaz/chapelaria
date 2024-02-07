@@ -15,22 +15,15 @@ createInertiaApp({
     
     resolve: (name) => resolvePageComponent(`./Pages/${name}.jsx`, import.meta.glob('./Pages/**/*.jsx'))
         .then((page) => {     
-            if (name == 'Auth/Register' || name == 'Auth/Login') {
+            if (name == 'Guest/NewUser' || name == 'Auth/Login' || name == 'Dashboard') {
                 return page
-            }  
-
-            if (name == 'Dashboard') {              
-                return page  
-                
-            }         
+            }       
            
             page.default.layout = page.default.layout || (page => <Dashboard user='' children={page} />)
             return page  
-          
            
         })
     ,
-
     setup({ el, App, props}) {
         const root = createRoot(el);
         root.render(<App {...props} />);

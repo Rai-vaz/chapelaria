@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Role;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -21,7 +22,8 @@ class RegisteredUserController extends Controller
      */
     public function create(): Response
     {
-        return Inertia::render('Auth/Register');
+        $roles = Role::all();
+        return Inertia::render('Guest/NewUser', ['roles' => $roles]);
     }
 
     /**
@@ -41,12 +43,13 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role_id' => $request->type
         ]);
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect('usuarios');
+        return redirect('dashboard');
     }
 }

@@ -5,7 +5,7 @@ import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import Select from "@/Components/Select";
-import { Head, Link, useForm } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
 
 
 
@@ -19,7 +19,6 @@ export default function NovoUsuario({role}) {
         password_confirmation: '',
     });
 
-    console.log(errors)
 
     useEffect(() => {
         return () => {
@@ -29,6 +28,7 @@ export default function NovoUsuario({role}) {
 
     const submit = (e) => {
         e.preventDefault();
+        post(route('usuarios.criar'))
     };
 
    

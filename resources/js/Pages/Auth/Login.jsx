@@ -28,13 +28,19 @@ export default function Login({ status, canResetPassword }) {
 
     return (
         
-        <GuestLayout btnRegister={true}>
+        <GuestLayout>
           
             <Head title="Log in" />
-          
 
             {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
-
+            
+            <Link
+                href={route('register')}
+                className="ms-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500 absolute right-8 top-5"
+            >
+                Register
+            </Link>
+        
             <form onSubmit={submit}>
                 <div>
                     <InputLabel htmlFor="email" value="Email" />
