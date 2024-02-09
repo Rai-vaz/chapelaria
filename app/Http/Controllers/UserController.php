@@ -66,7 +66,11 @@ class UserController extends Controller
 
         
 
-        return redirect('/usuarios');
+        // return redirect('/usuarios');
+
+        return response()->json([
+            'message' => 'Cadastrado'
+        ], 200);
         
       
     }

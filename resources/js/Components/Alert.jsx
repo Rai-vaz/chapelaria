@@ -17,7 +17,7 @@ export default function Alert({text, textStrong, show, className}) {
                     + (verify ? 'delay-1000 opacity-1' : 'opacity-0')
                 }
             >
-                {text}
+                {text + ' '}
                 <strong>{textStrong}</strong>
             </p>
  

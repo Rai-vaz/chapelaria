@@ -13,6 +13,8 @@ import Alert from "@/Components/Alert"
 
 export default function EditarUsuario({user, roles}) {
 
+    var url = import.meta.env.VITE_APP_URL
+
     const {register, handleSubmit, formState: {errors}} = useForm({
         type: '',
         name : '',
@@ -27,9 +29,9 @@ export default function EditarUsuario({user, roles}) {
 
     function onSubmit(data) {
 
-        axios.patch('http://127.0.0.1:8000/usuarios/editar/'+user.id, data)
+        axios.patch(url + '/usuarios/editar/'+user.id, data)
         .then((response) => {
-            console.log(response)
+
             setShowAlert({...showAlert, sucesso: true})
 
             setTimeout(() => {
@@ -39,7 +41,7 @@ export default function EditarUsuario({user, roles}) {
             
 
         }).catch((error) => {
-            console.log(error)
+            
             setShowAlert({...showAlert, erro: true})
             setTimeout(() => {
                 setShowAlert({...showAlert, erro: false})

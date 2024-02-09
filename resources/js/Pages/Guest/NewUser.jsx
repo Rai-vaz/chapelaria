@@ -1,13 +1,23 @@
+
+import { useState } from "react"
 import GuestLayout from "@/Layouts/GuestLayout"
-import { Head } from "@inertiajs/react"
+import { Head, router } from "@inertiajs/react"
 import InputLabel from "@/Components/InputLabel"
 import InputError from "@/Components/InputError"
 import TextInput from "@/Components/TextInput"
 import PrimaryButton from "@/Components/PrimaryButton"
 import { useForm } from 'react-hook-form'
+import axios from "axios"
+import Alert from '@/Components/Alert'
 
 
 export default function NewUser({roles}) {
+
+    var url = import.meta.env.VITE_APP_URL
+
+ 
+    const [validateEmail, setValidateEmail] = useState(false)
+    const [erroRegister, setErroRegister] = useState(false)
 
     const {register, handleSubmit, watch, formState : {errors}} = useForm({
         type: '',
@@ -17,15 +27,39 @@ export default function NewUser({roles}) {
     })
 
     function onSubmit(data) {
-        console.log(data)
+        axios.post(url + '/register', data)
+        .then((response) => {
+            router.get('/dashboard')
+        })
+        .catch((erro) => {
+
+            if (erro.response.status == 500 || erro.response.data.message != 'The email has already been taken.' ) {
+                setErroRegister(true) 
+                setTimeout(() => setErroRegister(false), 4000)
+
+            }else{    
+
+                setValidateEmail(true)
+            }
+
+        })
+        
     }
 
     const watchPassword = watch('password')
 
 
     return (
+        <>
+        <Alert 
+            show={{erro : erroRegister}}
+            text={'Não foi possível realizar o seu cadastro'}
+            textStrong={'tente mais tarde'}
+
+        />
         <GuestLayout>
             <Head title="Novo usuário"/>
+            
 
             <div>
                 <form>
@@ -76,6 +110,7 @@ export default function NewUser({roles}) {
                             })}
                         />
                         {errors.email?.type == 'required' ? <InputError message='Campo obrigatório'/> : errors.email?.type == 'pattern' && <InputError message='Email inválido'/>}
+                        {validateEmail && <InputError message='Email já cadastrado'/>}
                     </div>
 
                     <div className="mt-3">
@@ -122,5 +157,6 @@ export default function NewUser({roles}) {
         
         
         </GuestLayout>
+        </>
     )
 }
