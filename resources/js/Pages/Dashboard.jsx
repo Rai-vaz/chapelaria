@@ -27,11 +27,6 @@ export default function Dashboard({user, children}) {
     var currentUrl = window.location.href
 
 
-    
-   
-  
-    
-
     return (
         <div className="min-h-screen dark:bg-gray-900">
             <Head title="Dashboard" />
@@ -138,7 +133,7 @@ export default function Dashboard({user, children}) {
                 </div>
             </div>
 
-            <div className='grid grid-cols-[minmax(250px,15%),1fr] gap-5 m-5'>
+            <div className='grid grid-cols-[minmax(250px,15%),1fr] gap-5 m-5 overflow-hidden'>
                 
                 <div id='menu-lateral' className='text-white bg-gray-800 p-3 rounded-tl-md rounded-bl-md'>
                     <nav>

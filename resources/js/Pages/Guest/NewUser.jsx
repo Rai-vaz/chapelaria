@@ -1,7 +1,6 @@
-
 import { useState } from "react"
 import GuestLayout from "@/Layouts/GuestLayout"
-import { Head, router } from "@inertiajs/react"
+import { Head, router, Link } from "@inertiajs/react"
 import InputLabel from "@/Components/InputLabel"
 import InputError from "@/Components/InputError"
 import TextInput from "@/Components/TextInput"
@@ -15,7 +14,6 @@ export default function NewUser({roles}) {
 
     var url = import.meta.env.VITE_APP_URL
 
- 
     const [validateEmail, setValidateEmail] = useState(false)
     const [erroRegister, setErroRegister] = useState(false)
 
@@ -54,7 +52,7 @@ export default function NewUser({roles}) {
         <Alert 
             show={{erro : erroRegister}}
             text={'Não foi possível realizar o seu cadastro'}
-            textStrong={'tente mais tarde'}
+            textStrong={' tente mais tarde'}
 
         />
         <GuestLayout>
@@ -141,12 +139,14 @@ export default function NewUser({roles}) {
                         {errors.password_confirmation?.type == 'required' ? <InputError message='Campo obrigatório'/> : errors.password_confirmation?.type == 'minLength' ? <InputError message='A senha deve conter ao menos 8 caracteres'/> : errors.password_confirmation?.type == 'validate' && <InputError message='Senhas não conferem'/> }
                     </div>
 
-                    <div className="mt-5 flex justify-end">
+                    <div className="mt-5 flex justify-between">
+                        <Link href={route('login')} className="text-white opacity-70 hover:opacity-100">
+                            Já tenho cadastro
+                        </Link>
                         <PrimaryButton 
                             onClick={(e) => {
                                 e.preventDefault()
-                               handleSubmit(onSubmit)()
-                                
+                               handleSubmit(onSubmit)()                                
                             }}>
                             Cadastrar
                         </PrimaryButton>

@@ -13,11 +13,11 @@ export default function Alert({text, textStrong, show, className}) {
 
             <p 
                 className={'duration-200 ' +             
-                    (show.sucesso ? 'text-green-300 ' : show.erro ? 'text-red-300 ' : 'text-orange-300 ')
-                    + (verify ? 'delay-1000 opacity-1' : 'opacity-0')
+                    (show.sucesso ? 'text-green-300' : show.erro ? 'text-red-300' : show.warning && 'text-orange-300')
+                    + (verify ? ' delay-1000 opacity-1' : ' opacity-0')
                 }
             >
-                {text + ' '}
+                {text}
                 <strong>{textStrong}</strong>
             </p>
  

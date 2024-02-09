@@ -9,6 +9,8 @@ import { Link } from "@inertiajs/react"
 
 export default function Table({data, headerTitle}) {
 
+    var url = import.meta.env.VITE_APP_URL;
+
     //ordenando dados
     data.sort(function(a, b) {
         if (a.id > b.id ) {
@@ -31,7 +33,7 @@ export default function Table({data, headerTitle}) {
 
     //estado da paginação
     const alturaViewport = window.innerHeight || document.documentElement.clientHeight
-    const itemPerPage = alturaViewport < 919 ? 12 : 17
+    const itemPerPage = alturaViewport < 919 ? 11 : 16
     const [state, setState] = useState({
         currentPage: 1,
         itemPerPage,
@@ -95,7 +97,7 @@ export default function Table({data, headerTitle}) {
 
     //função deletar usuário
     async function handleClick(id) {
-       axios.delete('http://127.0.0.1:8000/usuarios/'+id)
+       axios.delete(url + '/usuarios/'+id)
        .then((resp) => {
             let posDeletar = processedData.filter((value) => {
                 if (value.id !== id) {
@@ -121,8 +123,8 @@ export default function Table({data, headerTitle}) {
         <div>
             <SearchBar searchFunction={searchFunction}/>
             <Alert 
-                text={alert.sucesso ? 'Registro deletado com' : alert.erro  ? 'Não foi possível' : alert.warning && 'Usuário não tem '} 
-                textStrong={alert.sucesso ? ' sucesso' :  alert.erro ? ' deletar' : alert.warning && 'permissão'} 
+                text={alert.sucesso ? 'Registro deletado com' : alert.erro  ? 'Não foi possível' : alert.warning && 'Usuário não tem'} 
+                textStrong={alert.sucesso ? ' sucesso' :  alert.erro ? ' deletar' : alert.warning && ' permissão'} 
                 show={alert}
                 className='rounded-tr-md rounded-tl-md'
 
