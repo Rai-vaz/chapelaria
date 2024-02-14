@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Participante;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\OverView;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -40,7 +41,13 @@ Route::middleware('auth')->group(function () {
     Route::match(['get','patch'],'usuarios/editar/{id}',[UserController::class, 'update'])->name('teste');
 
     // ROTAS PARTICIPANTES
-    Route::get('participante', [Participante::class, 'index'])->name('participantes');
+    Route::get('participantes', [Participante::class, 'index'])->name('participantes');
+
+
+
+    // ROTAS EVENTO
+    Route::get('chapelarias', [EventController::class, 'index'])->name('chapelarias');
+    Route::get('chapelarias/cadastrar', [EventController::class, 'create'])->name('chapelarias.cadastrar');
 
     Route::get('overview', [OverView::class, 'index']);
 

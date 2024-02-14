@@ -20,7 +20,7 @@ class UserController extends Controller
         $users = User::with('role')->get();
         // $abilities = $users->abilities;
     
-        return Inertia::render('Usuario/Usuarios', ['table' => $users]);
+        return Inertia::render('Usuario/MostrarUsuarios', ['table' => $users]);
           
     }
 

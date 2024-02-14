@@ -15,7 +15,7 @@ import Svg from '@/Components/Svg'
 export default function Dashboard({user, children}) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
-    
+    console.log(user)
     if (!localStorage.getItem('user')) {
         localStorage.setItem('user', user.name)
     }
@@ -153,15 +153,14 @@ export default function Dashboard({user, children}) {
                         <MenuButton
                             icon={
                                <Svg
-                                    d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
-                                    className='h-7'
+                                    d={"M17 14v6m-3-3h6M6 10h2a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2zm10 0h2a2 2 0 002-2V6a2 2 0 00-2-2h-2a2 2 0 00-2 2v2a2 2 0 002 2zM6 20h2a2 2 0 002-2v-2a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2z"}
+                                    className={'h-7'}
                                />
-
                             }
-                            text={'Usuários'}
-                            href={route('usuarios')}
-                            className={currentUrl.includes('usuarios') && 'border-b-[2px]   border-b-green-250'}
-                            
+                            text={'Chapelarias'}
+                            href={route('chapelarias')}
+                            className={currentUrl.includes('chapelarias') && 'border-b-[2px]  border-b-green-250'}
+
                         />
 
                         <MenuButton
@@ -172,7 +171,9 @@ export default function Dashboard({user, children}) {
                                />
                             }   
                             text={'Participantes'}
-                            href={'participantes'}
+                            href={''}
+                            className={currentUrl.includes('participantes') && 'border-b-[2px]   border-b-green-250'}
+
                         />
 
                         <MenuButton
@@ -195,18 +196,6 @@ export default function Dashboard({user, children}) {
                             href={''}
                         />
 
-
-                        <MenuButton
-                            icon={
-                               <Svg
-                                    d={"M17 14v6m-3-3h6M6 10h2a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2zm10 0h2a2 2 0 002-2V6a2 2 0 00-2-2h-2a2 2 0 00-2 2v2a2 2 0 002 2zM6 20h2a2 2 0 002-2v-2a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2z"}
-                                    className={'h-7'}
-                               />
-                            }
-                            text={'Chapelaria'}
-                            href={''}
-                        />
-
                         <MenuButton
                             icon={
                                <Svg
@@ -221,7 +210,20 @@ export default function Dashboard({user, children}) {
                             href={''}
                             textMargin={'pl-[3px]'}
                         />
-                   
+
+                        <MenuButton
+                            icon={
+                               <Svg
+                                    d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
+                                    className='h-7'
+                               />
+
+                            }
+                            text={'Usuários'}
+                            href={route('usuarios')}
+                            className={currentUrl.includes('usuarios') && 'border-b-[2px]   border-b-green-250'}
+                            
+                        />
 
                         <MenuButton
                             icon={
@@ -233,11 +235,13 @@ export default function Dashboard({user, children}) {
                             text={'Logout'}
                             href={''}
                         />
+
+                        
                     
                     </nav>
                 </div>
 
-                <main id='content' className='text-white bg-gray-800 rounded-tr-md rounded-br-md'>
+                <main id='content' className='text-white bg-gray-800 rounded-tr-md rounded-br-md h-[calc(100vh-104px)]'>
                     {children || <OverView/>}
                 </main>
             </div>

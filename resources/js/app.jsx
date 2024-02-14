@@ -15,7 +15,7 @@ createInertiaApp({
     
     resolve: (name) => resolvePageComponent(`./Pages/${name}.jsx`, import.meta.glob('./Pages/**/*.jsx'))
         .then((page) => {    
-            console.log(name) 
+            
             if (name == 'Guest/NewUser' || name == 'Auth/Login' || name == 'Dashboard' || name == 'Auth/ForgotPassword') {
                 return page
             }       

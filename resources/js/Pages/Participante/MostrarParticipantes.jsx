@@ -20,10 +20,6 @@ const Participante = () => {
 
    
     
-  
-
-
-
     return (
         <>
             <Head title="Participantes"/>
